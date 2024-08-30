@@ -1,0 +1,33 @@
+/* Style the lines between nodes */
+.initechNode {
+    position: relative;
+}
+
+.initechNode::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    border-left: 2px solid #007bff;
+    width: 0;
+    height: 20px;
+}
+
+.initechNode:hover::before {
+    border-color: red; /* Change color on hover */
+}
+
+/* Add arrow to the bottom of the node */
+.initechNode::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #007bff transparent transparent transparent;
+}
+
+.initechNode:hover::after {
+    border-top-color: red; /* Change arrow color on hover */
+}
