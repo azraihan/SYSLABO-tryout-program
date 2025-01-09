@@ -2,169 +2,160 @@
 
 # Organization Chart Generator
 
-A MERN stack application for automatically generating and managing organizational charts with support for concurrent positions (兼務/Kenmu).
+An automated organization chart generation application built with the MERN stack (MongoDB, Express.js, React.js, Node.js) for SYSLABO Corp.
 
-## Overview
+## 🎯 Project Overview
 
-This application solves the challenge of manually maintaining organizational charts in Excel by providing an automated solution with the following features:
+This application automates the creation of organizational charts from employee and department data, replacing a manual Excel-based process. It handles concurrent positions (兼務/Kenmu) and maintains historical records of organizational changes.
 
-- Automatic generation of organizational charts from employee and department data
+### Key Features
+
+- Automatic organization chart generation in a printable format
 - Support for concurrent positions (兼務/Kenmu)
+- Employee and department data management
 - Change history tracking
-- Simple maintenance interface for employee and department data
-- UTF-8 support for Japanese text
+- UTF-8 encoding support for Japanese characters
 
-## Technologies
+## 🚀 Requirements
 
-- MongoDB (Database)
-- Express.js (Backend)
-- React.js (Frontend)
-- Node.js (Runtime)
-- Additional libraries:
-  - Mermaid.js (Chart visualization)
-  - Material-UI (UI components)
-  - Mongoose (MongoDB ODM)
+### Core Requirements
+- Node.js (v14 or higher)
+- MongoDB (v4.4 or higher)
+- npm or yarn package manager
 
-## Features
+### Optional Tools
+- MongoDB Compass (for database management)
+- Postman (for API testing)
 
-### Core Features
+## 💻 Installation
 
-1. **Automated Chart Generation**
-   - Generates printable organizational charts
-   - Supports hierarchical department structures
-   - Indicates concurrent positions with (兼) symbol
-
-2. **Data Management**
-   - Employee (sys_users) management
-   - Department (cmn_department) management
-   - Change history tracking
-   - Support for concurrent position management
-
-3. **User Interface**
-   - Intuitive maintenance interface
-   - Print-ready chart output
-   - UTF-8 support for Japanese text
-
-## Installation
-
+1. Clone the repository:
 ```bash
-# Clone the repository
-git clone [repository-url]
+git clone https://github.com/yourusername/organization-chart-generator.git
+cd organization-chart-generator
+```
 
-# Install dependencies for backend
+2. Install dependencies:
+```bash
+# Install backend dependencies
 cd backend
 npm install
 
-# Install dependencies for frontend
+# Install frontend dependencies
 cd ../frontend
 npm install
-
-# Create .env file in backend directory
-cp .env.example .env
 ```
 
-## Configuration
+3. Configure environment variables:
+```bash
+# Backend (.env)
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/syslabo-org
+JWT_SECRET=your_jwt_secret
 
-Create a `.env` file in the backend directory with the following variables:
-
-```env
-MONGODB_URI=your_mongodb_connection_string
-PORT=3000
-NODE_ENV=development
+# Frontend (.env)
+REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-## Database Schema
+## 🏃‍♂️ Running the Application
 
-### sys_users
+1. Start MongoDB service
+2. Start the backend server:
+```bash
+cd backend
+npm run dev
+```
+
+3. Start the frontend application:
+```bash
+cd frontend
+npm start
+```
+
+## 🏗️ Project Structure
+
+```
+organization-chart-generator/
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   └── server.js
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── services/
+│   └── package.json
+└── README.md
+```
+
+## 📝 API Documentation
+
+### Employee Endpoints
+- `GET /api/employees` - Get all employees
+- `POST /api/employees` - Create new employee
+- `PUT /api/employees/:id` - Update employee
+- `GET /api/employees/history` - Get employee history
+
+### Department Endpoints
+- `GET /api/departments` - Get all departments
+- `POST /api/departments` - Create new department
+- `PUT /api/departments/:id` - Update department
+- `GET /api/departments/history` - Get department history
+
+## 🗃️ Database Schema
+
+### Employee (sys_users)
 ```javascript
 {
-  userId: String,
+  employeeId: String,
   name: String,
   department: String,
   position: String,
-  concurrent_positions: [{
-    department: String,
+  concurrentPositions: [{
+    departmentId: String,
     position: String,
     startDate: Date
   }],
-  createdAt: Date,
-  updatedAt: Date
+  history: [{
+    change: Object,
+    timestamp: Date
+  }]
 }
 ```
 
-### cmn_department
+### Department (cmn_department)
 ```javascript
 {
   departmentId: String,
   name: String,
   parentDepartment: String,
   level: Number,
-  createdAt: Date,
-  updatedAt: Date
+  history: [{
+    change: Object,
+    timestamp: Date
+  }]
 }
 ```
 
-## Usage
+## 🔒 Security
 
-1. Start the backend server:
-```bash
-cd backend
-npm start
-```
+- JWT authentication for API endpoints
+- Input validation and sanitization
+- CORS configuration
+- Rate limiting
+- Environment variable protection
 
-2. Start the frontend development server:
-```bash
-cd frontend
-npm start
-```
+## 🌐 Browser Support
 
-3. Access the application at `http://localhost:3000`
+- Chrome (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Edge (latest 2 versions)
 
-## Development Guidelines
-
-1. **Code Style**
-   - Follow ESLint configuration
-   - Use Prettier for formatting
-   - Write meaningful commit messages
-
-2. **Database Changes**
-   - Add new fields instead of modifying existing ones
-   - Maintain change history
-   - Document schema changes
-
-3. **Testing**
-   - Write unit tests for new features
-   - Ensure UTF-8 compatibility
-   - Test concurrent position scenarios
-
-## API Documentation
-
-### Employee Endpoints
-
-```
-GET /api/employees - List all employees
-POST /api/employees - Create new employee
-PUT /api/employees/:id - Update employee
-GET /api/employees/:id/history - Get employee history
-```
-
-### Department Endpoints
-
-```
-GET /api/departments - List all departments
-POST /api/departments - Create new department
-PUT /api/departments/:id - Update department
-GET /api/departments/:id/history - Get department history
-```
-
-### Chart Endpoints
-
-```
-GET /api/chart - Generate organizational chart
-GET /api/chart/export - Export chart as PDF
-```
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -172,16 +163,14 @@ GET /api/chart/export - Export chart as PDF
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
+## 📄 License
 
-This project is proprietary and confidential. All rights reserved by SYSLABO Corp.
+This project is proprietary and confidential. Unauthorized copying or distribution of this project's files, via any medium, is strictly prohibited.
 
-## Support
+## 📞 Contact
 
-For questions and support, please contact:
-- Email: bgd_recruiting@syslabo.com
+For questions and support, please contact: bgd_recruiting@syslabo.com
 
-## Acknowledgments
+---
 
-- SYSLABO Corp. for the project requirements and specifications
-- All contributors and maintainers of the project
+Copyright © SYSLABO All Rights Reserved.
