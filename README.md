@@ -5,7 +5,7 @@
 
 A comprehensive web application developed for SYSLABO Corp. to automate the generation of organizational charts and manage company structure data efficiently.
 
-![SYSLABO Logo](public/syslabo_logo.png)
+![SYSLABO Logo](frontend/public/syslabo_logo.png)
 
 ## 📋 Project Overview
 
