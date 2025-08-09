@@ -5,6 +5,8 @@
 
 A comprehensive web application developed for SYSLABO Corp. to automate the generation of organizational charts and manage company structure data efficiently.
 
+[Task Specification](https://github.com/azraihan/SYSLABO-tryout-program/blob/main/TASK_an%20organization%20chart%20automatic%20output%20application.pdf)
+
 ![SYSLABO Logo](frontend/public/syslabo_logo.png)
 
 ## 📋 Project Overview
